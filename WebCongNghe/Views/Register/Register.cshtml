@@ -1,0 +1,58 @@
+﻿@model WebCongNghe.Models.Users
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<!-- header Đăng ký, Đăng kí -->
+    <header class="headerLogin">
+        <div class="headerLogin-logo">
+            <a href="~/Home/Index">
+                <b>WebCongNghe</b>.Pro
+            </a>
+            <p>Đăng ký</p>
+        </div>
+        <div class="headerLogin-question"><a href="#">Bạn cần giúp đỡ ?</a></div>
+    </header>
+    <!-- form dang nhap khi click vao button tren header-->
+    <div class="Login">
+        @using (Html.BeginForm("Validate", "Register", FormMethod.Post, new {@class = "form-Login", id = "form-signup"}))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-Login_title">Đăng Ký Tài Khoản</div>
+            <div class="form-Login-input">
+                @Html.TextBoxFor(m => m.email, "", new {@placeholder = "Nhập email" })
+                @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.account, "", new {@placeholder = "Nhập tên tài khoản" })
+                @Html.ValidationMessageFor(m => m.account, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.password, "", new {@placeholder = "Nhập mật khẩu", @type = "password" })
+                @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.ConfirmPassword, "", new {@placeholder = "Xác nhận mật khẩu", @type = "password" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-Login-btn"><button type="submit" name="submit" id="submit-signup">Đăng ký</button></div>
+            <div class="form-Login_social">
+                <button ><i class="fab fa-google mr-2"></i> Google</button>
+                <button ><i class="fab fa-facebook-f mr-2"></i> Facebook </button>
+            </div>
+            <div class="form-Login_urlRegister">
+                Bạn đã có tài khoản? <a href="~/Login/Login">Đăng nhập</a>
+            </div>
+        }
+    </div>
+
+@if (!String.IsNullOrEmpty(ViewBag.ErrorEmail))
+{
+    <script>
+        alert("Email đã tồn tại!");
+    </script>
+}
+@if (!String.IsNullOrEmpty(ViewBag.ErrorAccount))
+{
+    <script>
+        alert("Tên tài khoản đã tồn tại!");
+    </script>
+}
+
+
+
+

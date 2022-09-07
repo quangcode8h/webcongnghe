@@ -1,0 +1,78 @@
+﻿@using WebCongNghe.Models.Entities;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SanPham> listPInCart = ViewBag.listPInCart;
+    int id = ViewBag.id;
+    double? sum = 0;
+    double? promotion = 0;
+}
+
+<!-- giao diện giỏ hàng  -->
+    <section class="content my-3">
+        <div class="container">
+            <div class="cart-page bg-white">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 cart">
+                        <div class="cart-content py-3 pl-3">
+                            <h6 class="header-gio-hang">GIỎ HÀNG CỦA BẠN <span>@listPInCart.Count()</span></h6>
+                            <div class="cart-list-items">
+                            @foreach(var item in listPInCart)
+                            {
+                                <div class="cart-item d-flex mt-3 align-items-center">
+                                    <a href="product-item.html" class="img">
+                                        <img src="@Url.Content(item.Anh1)" class="img-fluid" alt="img">
+                                    </a>
+                                    <div class="item-caption d-flex w-100">
+                                        <div class="item-info ml-3">
+                                            <p href="#" class="ten">@item.TenSp</p>
+                                            <p>Số lượng: @item.SoLuong</p>
+                                            <p>Màu: @item.Mau</p>
+                                            <p class="text-warning">Giảm: @item.KhuyenMai %</p>
+                                        </div>
+                                        <div class="item-price ml-auto d-flex flex-column align-items-end pt-5">
+                                            <div class="giamoi">@String.Format("{0:n0} đ ", item.Gia - (item.Gia * item.KhuyenMai)/100)</div>
+                                            <a class="remove mt-1" href="@Url.Action("deleteProduct", "Cart", new{id = id, pr = item.MaSp})"><i class="far fa-trash-alt"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                promotion += ((item.Gia * item.KhuyenMai) / 100) * item.SoLuong;
+                                sum += (item.Gia - (item.Gia * item.KhuyenMai)/100) * item.SoLuong;
+                            }
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-3">
+                                    <a href="@Url.Action("Index", "Home")" class="btn nutmuathem mt-3">Mua thêm</a>
+                                </div>
+                                <div class="col-md-5 offset-md-4">
+                                    <div class="tonggiatien">
+                                        <div class="group d-flex justify-content-between">
+                                            <p class="label">Giảm giá:</p>
+                                            <p class="giamgia">@String.Format("{0:n0} đ", promotion)</p>
+                                        </div>
+                                        @*<div class="group d-flex justify-content-between">
+                                            <p class="label">Phí vận chuyển:</p>
+                                            <p class="phivanchuyen">0 ₫</p>
+                                        </div>
+                                        <div class="group d-flex justify-content-between">
+                                            <p class="label">Phí dịch vụ:</p>
+                                            <p class="phidicvu">0 ₫</p>
+                                        </div>*@
+                                        <div class="group d-flex justify-content-between align-items-center">
+                                            <strong class="text-uppercase">Tổng cộng:</strong>
+                                            <p class="tongcong">@String.Format("{0:n0} đ", sum)</p>
+                                        </div>
+                                        <a href="#" class="btn nutmuathem mb-3 mt-3">Thanh toán</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- het row  -->
+            </div>
+            <!-- het cart-page  -->
+        </div>
+        <!-- het container  -->
+    </section>
+

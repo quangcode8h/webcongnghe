@@ -1,0 +1,312 @@
+﻿@{
+    Layout = "_Layout";
+    var listCategory = ViewBag.listCategory;
+    var listSubCategory = ViewBag.listSubCategory;
+    var outstandingProduct = ViewBag.outstandingProduct;
+    var promotionProducts = ViewBag.promotionProducts;
+    var product = new Products();
+    var PopularityProducts = ViewBag.PopularityProducts;
+    var NewProducts = ViewBag.NewProducts;
+    var cookiesOutOfProduct = ViewBag.cookiesOutOfProduct;
+}
+@{
+    if (!String.IsNullOrEmpty(cookiesOutOfProduct))
+    {
+        <script>
+            alert("Sản phẩm bạn chọn hiện đang hết hàng!");
+        </script>
+    }
+}
+<!-- thanh tieu de "danh muc sach" + hotline + ho tro truc tuyen -->
+    <section class="duoinavbar">
+        <div class="container text-white">
+            <div class="row justify">
+                <div class="col-md-3">
+                    <div class="categoryheader">
+                        <div class="noidungheader text-white">
+                            <i class="fa fa-bars"></i>
+                            <span class="text-uppercase font-weight-bold ml-1">Danh mục sản phẩm</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="benphai float-right">
+                        <div class="hotline">
+                            <i class="fa fa-phone"></i>
+                            <span>Hotline:<b>1900 1999</b></span>
+                        </div>
+                        <i class="fas fa-comments-dollar"></i>
+                        <a href="#">Hỗ trợ trực tuyến </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- noi dung danh muc sach(categories) + banner slider -->
+    <section class="header bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" style="margin-right: -15px;">
+                    <!-- CATEGORIES -->
+                    <div class="categorycontent">
+                        <ul>
+                            @{
+                                foreach(var category in listCategory)
+                                {
+                                    <li>
+                                        <a href="#">@category.TenDm</a><i class="fa fa-chevron-right float-right"></i>
+                                        <ul>
+                                            <li class="liheader"><a href="#" class="header text-uppercase">@category.TenDm</a></li>                                                                                  
+                                            @{
+                                                var SubCategory = new SubCategory();
+                                                var GroupCategory = SubCategory.groupSubCategory(category.MaDm);
+                                                if(GroupCategory.Count <= 5)
+                                                {
+                                                    <div class="content trai">
+                                                    @foreach(var S in GroupCategory)
+                                                    {
+                                                        <li><a href="@Url.Action("ProductsByCategory", "Products", new {id = S.MaDmcon, SubCategory = S.TenDmcon, Category = category.TenDm})">
+                                                        @S.TenDmcon
+                                                        </a></li>
+                                                    }
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    int i = 0;  
+                                                    <div class="content trai">
+                                                    @while(i <= 4)
+                                                    {
+                                                        <li><a href="@Url.Action("ProductsByCategory", "Products", new {id = GroupCategory[i].MaDmcon, SubCategory = GroupCategory[i].TenDmcon, Category = category.TenDm})">@GroupCategory[i].TenDmcon</a></li>
+                                                        i++;
+                                                    }
+                                                    </div>
+                                                    <div class="content phai">
+                                                    @while(i < GroupCategory.Count)
+                                                    {
+                                                        <li><a href="@Url.Action("ProductsByCategory", "Products", new {id = GroupCategory[i].MaDmcon, SubCategory = GroupCategory[i].TenDmcon, Category = category.TenDm})">@GroupCategory[i].TenDmcon</a></li>
+                                                        i++;
+                                                    }
+                                                    </div>
+                                                }
+
+                                                                                            
+                                           }
+                                         </ul>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- banner slider  -->
+            <div class="col-md-9 px-0">
+                <div id="carouselId" class="carousel slide" data-ride="carousel">
+                    <ol class="nutcarousel carousel-indicators rounded-circle">
+                        <li data-target="#carouselId" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselId" data-slide-to="1"></li>
+                        <li data-target="#carouselId" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="#"><img src="https://cdn.nguyenkimmall.com/images/companies/_1/PARTNERSHIP/Bank/MSB/May%202022/Web-936x376.png" class="img-fluid"
+                                        style="height: 386px;" width="900px" alt="First slide"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="#"><img src="https://cdn.nguyenkimmall.com/images/companies/_1/PARTNERSHIP/Brand/Panasonic/2022/July/pre-order%20m%C3%A1y%20gi%E1%BA%B7t/936x376.png" class="img-fluid"
+                                        style="height: 386px;" width="900px" alt="Second slide"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="#"><img src="https://cdn.nguyenkimmall.com/images/companies/_1/PNS/2022/LAPTOP/Lenovo_936x376.png" class="img-fluid"
+                                        style="height: 386px;" alt="Third slide"></a>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselId" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselId" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- sản phẩm nổi bật  -->
+<section class="_1khoi sachmoi bg-white">
+    <div class="container">
+        <div class="noidung" style=" width: 100%;">
+            <div class="row">
+                <!--header-->
+                <div class="col-12 d-flex justify-content-between align-items-center pb-2 bg-transparent pt-4">
+                    <h1 class="header text-uppercase" style="font-weight: 400;">SẢN PHẨM NỔI BẬT</h1>
+                    <a href="sach-moi-tuyen-chon.html" class="btn btn-warning btn-sm text-white">Xem tất cả</a>
+                </div>
+            </div>
+            <div class="khoisanpham" style="padding-bottom: 2rem;">
+                <!-- 1 san pham -->
+                @{
+                    foreach(var item in outstandingProduct)
+                    {
+                        <div class="card">
+                        <a href="@Url.Action("Details", "Products", new {id = item.MaSp})" class="motsanpham"
+                            style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="bottom">
+                            <img class="card-img-top anh" src="@Url.Content(item.Anh1)"
+                                alt="image">
+                            <div class="card-body noidungsp mt-3">
+                                <h3 class="card-title ten">@item.TenSp</h3>
+                                <small class="tacgia text-muted">@product.getNameProducer(item.MaNsx)</small>
+                                <div class="gia d-flex align-items-baseline">
+                                    <div class="giamoi">@String.Format("{0:n0} đ ", item.Gia - (item.Gia * item.KhuyenMai)/100)</div>
+                                    <div class="sale">@String.Format("-{0}%", item.KhuyenMai)</div>
+                                </div>
+                                <div class="danhgia">
+                                    <ul class="d-flex" style="list-style: none;">
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><span class="text-muted">0 nhận xét</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    }
+                }
+                    
+                </div>
+            </div>
+        </div>
+</section>
+
+    <!-- GIÁ SỐC ONLINE MỖI NGÀY -->
+    <section class="_1khoi sachmoi bg-white">
+        <div class="container">
+            <div class="noidung bg-white" style=" width: 100%;">
+                <div class="row">
+                    <!--header -->
+                    <div class="col-12 d-flex justify-content-between align-items-center pb-2">
+                        <h2 class="header text-uppercase" style="font-weight: 400;">GIÁ SỐC ONLINE MỖI NGÀY</h2>
+                        <a href="#" class="btn btn-warning btn-sm text-white">Xem tất cả</a>
+                    </div>
+                </div>
+                <div class="khoisanpham">
+                @{
+                    foreach(var item in promotionProducts)
+                    {
+                        <div class="card">
+                        <a href="@Url.Action("Details", "Products", new {id = item.MaSp})" class="motsanpham" style="text-decoration: none; color: black;"
+                            data-toggle="tooltip" data-placement="bottom" title="sp giảm giá">
+                            <img class="card-img-top anh" src="@Url.Content(item.Anh1)"
+                                alt="anh-sp-giam-gia">
+                            <div class="card-body noidungsp mt-3">
+                                <h3 class="card-title ten">@item.TenSp</h3>
+                                <small class="tacgia text-muted">@product.getNameProducer(item.MaNsx)</small>
+                                <div class="gia d-flex align-items-baseline">
+                                    <div class="giamoi">@String.Format("{0:n0} đ ", item.Gia - (item.Gia * item.KhuyenMai)/100)</div>
+                                    <div class="sale">@String.Format("-{0}%", item.KhuyenMai)</div>
+                                </div>
+                                <div class="danhgia">
+                                    <ul class="d-flex" style="list-style: none;">
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><span class="text-muted">0 nhận xét</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    }
+                }
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SẢN PHẨM ƯA CHUỘNG  -->
+    <section class="_1khoi sachmoi bg-white">
+        <div class="container">
+            <div class="noidung bg-white" style=" width: 100%;">
+                <div class="row">
+                    <!--header-->
+                    <div class="col-12 d-flex justify-content-between align-items-center pb-2 pt-4">
+                        <h2 class="header text-uppercase" style="font-weight: 400;">SẢN PHẨM ƯA CHUỘNG</h2>
+                        <a href="#" class="btn btn-warning btn-sm text-white">Xem tất cả</a>
+                    </div>
+                </div>
+                <div class="khoisanpham">
+                @{
+                    foreach(var item in PopularityProducts)
+                    {
+                        <div class="card">
+                        <a href="@Url.Action("Details", "Products", new {id = item.MaSp})" class="motsanpham" style="text-decoration: none; color: black;"
+                            data-toggle="tooltip" data-placement="bottom" title="sp ưa chuộng">
+                            <img class="card-img-top anh" src="@Url.Content(item.Anh1)"
+                                alt="sp ua chuong">
+                            <div class="card-body noidungsp mt-3">
+                                <h3 class="card-title ten">@item.TenSp</h3>
+                                <small class="tacgia text-muted">@product.getNameProducer(item.MaNsx)</small>
+                                <div class="gia d-flex align-items-baseline">
+                                </div>
+                                <div class="danhgia">
+                                    <ul class="d-flex" style="list-style: none;">
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><span class="text-muted">0 nhận xét</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    }
+                }
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- sản phẩm mới -->
+    <section class="_1khoi sachmoi bg-white">
+        <div class="container">
+            <div class="noidung" style=" width: 100%;">
+                <div class="row">
+                    <!--header-->
+                    <div class="col-12 d-flex justify-content-between align-items-center pb-2 bg-transparent pt-4">
+                        <h2 class="header text-uppercase" style="font-weight: 400;">SẢN PHẨM MỚI</h2>
+                        <a href="#" class="btn btn-warning btn-sm text-white">Xem tất cả</a>
+                    </div>
+                </div>
+                <div class="khoisanpham mb-5">
+                    <!-- 1 san pham -->
+                    @{
+                        foreach(var item in NewProducts)
+                        {
+                            <div class="card">
+                                    <a href="@Url.Action("Details", "Products", new {id = item.MaSp})" class="motsanpham" style="text-decoration: none; color: black;"
+                                        data-toggle="tooltip" data-placement="bottom"
+                                        title="sản phẩm mới">
+                                        <img class="card-img-top anh" src="@Url.Content(item.Anh1)"
+                                            alt="img">
+                                        <div class="card-body noidungsp mt-3">
+                                            <h3 class="card-title ten">@item.TenSp</h3>
+                                            <small class="thoigian text-muted">@item.NgayCapNhat.ToString("dd/MM/yyyy")</small>
+                                            <div><a class="detail" href="#">Xem chi tiết</a></div>
+                                        </div>
+                                    </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

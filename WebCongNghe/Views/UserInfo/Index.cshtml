@@ -1,0 +1,63 @@
+﻿@model WebCongNghe.Models.Entities.KhachHang
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class = "content">
+    <h1>Cập nhật thông tin</h1>
+    <h4>Chỉnh sửa thông tin cá nhân</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <form method = "post" enctype="multipart/form-data" asp-action="Validate" asp-controller="UserInfo" >
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="MaKh" type = "hidden"/>
+                </div>
+                <div class="form-group">
+                    <label>Tài khoản: </label>
+                    <h5 class="account">@Model.TaiKhoan</h5>
+                </div>
+                <div class="form-group">
+                    <label>Ảnh đại diện: </label>
+                    <input type="file" name="uploadImage" id="uploadImage" />
+                </div>
+                <div class="form-group">
+                    <input asp-for="AnhDaiDien" type="hidden"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HoTen" class="control-label">Họ tên:</label>
+                    <input asp-for="HoTen" class="form-control" />
+                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GioiTinh" class="control-label">Giới tính:</label>
+                    <input asp-for="GioiTinh" class="form-control" />
+                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NgaySinh" class="control-label">Ngày sinh:</label>
+                    <input asp-for="NgaySinh" type="date" class="form-control" />
+                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiaChi" class="control-label">Địa chỉ:</label>
+                    <input asp-for="DiaChi" class="form-control" />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email:</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DienThoai" class="control-label">Số điện thoại: </label>
+                    <input asp-for="DienThoai" class="form-control" />
+                    <span asp-validation-for="DienThoai" class="text-danger"></span>
+                </div>
+                <div class="form-btn"><input type="submit" value="Cập nhật" class="btn btn-primary" /></div>
+            </form>
+        </div>
+    </div>
+</div>
+

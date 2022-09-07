@@ -1,0 +1,54 @@
+﻿@model WebCongNghe.Models.Accounts
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    var CookieValue = ViewBag.CookieValue;
+}
+<!-- header đăng nhập, đăng kí -->
+    <header class="headerLogin">
+        <div class="headerLogin-logo">
+            <a href="@Url.Action("Index", "Home")">
+                <b>ShopCongNghe</b>.pro
+            </a>
+            <p>Đăng nhập</p>
+        </div>
+        <div class="headerLogin-question"><a href="#">Bạn cần giúp đỡ ?</a></div>
+    </header>
+    <!-- form dang nhap khi click vao button tren header-->
+    <div class="Login">
+        @using (Html.BeginForm("Validate", "Login", FormMethod.Post, new {@class = "form-Login"}))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-Login_title">Đăng Nhập</div>
+            <div class="form-Login-input">
+                @Html.TextBoxFor(model => model.account, "", new {@placeholder = "Nhập tên tài khoản hoặc email" })
+                @Html.ValidationMessageFor(model => model.account, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(model => model.password, "", new {@placeholder = "Nhập mật khẩu", @type = "password" })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-Login-btn"><button type="submit" name="submit" id="submit-signup">Đăng Nhập</button></div>
+            <div class="form-Login_social">
+                <button ><i class="fab fa-google mr-2"></i> Google</button>
+                <button ><i class="fab fa-facebook-f mr-2"></i> Facebook </button>
+            </div>
+            <div class="form-Login_urlRegister">
+                Bạn đã chưa có tài khoản? <a href="~/Register/Register">Đăng ký</a>
+            </div>
+        }
+    </div>
+@*in ra thông báo đăng ký thành công*@
+@{
+    if (!string.IsNullOrEmpty(CookieValue))
+    {
+        <script>
+            alert("chúc mừng bạn đã đăng ký thành công!");
+        </script>
+    }
+
+    if (!string.IsNullOrEmpty(ViewBag.LoginError))
+    {
+        <script>
+            alert("Sai tên tài khoản hoặc mật khẩu");
+        </script>
+    }
+}
