@@ -20,16 +20,15 @@
                         <li class="breadcrumb-item"><a href="#">@nameCategory</a></li>
                         <li class="breadcrumb-item active"><a href="#">@nameSubCategory</a></li>
                     </ol>
-                    <a href="#" class="btn btn-warning btn-sm text-white">Xem tất cả</a>
                 </div>
             </div>
-            <div class="khoisanpham" style="padding-bottom: 2rem;">
+            <div class="row" style="padding-bottom: 2rem;">
                 <!-- 1 san pham -->
                 @{
                     foreach(var item in listProductsByCategory)
                     {
-                        <div class="card">
-                        <a href="Lap-trinh-ke-hoach-kinh-doanh-hieu-qua.html" class="motsanpham"
+                        <div class=" col-2">
+                        <a href="@Url.Action("Details", "Products", new {id = item.MaSp})" class="motsanpham"
                             style="text-decoration: none; color: black;" data-toggle="tooltip" data-placement="bottom">
                             <img class="card-img-top anh" src="@Url.Content(item.Anh1)"
                                 alt="image">

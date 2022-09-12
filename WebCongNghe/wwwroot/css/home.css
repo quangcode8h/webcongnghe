@@ -800,5 +800,34 @@ footer .header {
     margin-bottom: 20px;
 }
 
+/*css page admin*/
+.list-work {
+    width: 20%;
+    height: 600px;
+    padding: 10px 20px;
+    background-color: lightgray;
+    border-left: 1px solid #C0C0C0;
+    border-right: 1px solid #C0C0C0;
+}
+.list-work_item{
+    display: flex;
+    align-items:center;
+    margin: 10px 0;
+}
+.work_item-link {
+    display: block;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+}
+.work_item-link:hover {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+.work_item-icon{
+    font-size: 12px;
+    align-items: center;
+    vertical-align: middle;
+}
 
- 

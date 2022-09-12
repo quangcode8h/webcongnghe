@@ -1,0 +1,50 @@
+﻿@model List<WebCongNghe.Models.Entities.SanPham>
+@{
+    ViewData["Title"] = "MaintaintProducts";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<a href="@Url.Action("AddForm", "Products")">Thêm mới sản phẩm</a>
+<table>
+    <tr>
+      <th scope="col">Mã sản phẩm</th>
+      <th scope="col">Tên sản phẩm</th>
+      <th scope="col">Chi tiết</th>
+      <th scope="col">Giá</th>
+      <th scope="col">Màu</th>
+      <th scope="col">Số lượng</th>
+      <th scope="col">Ảnh 1</th>
+      <th scope="col">Ảnh 2</th>
+      <th scope="col">Ảnh 3</th>
+      <th scope="col">Ảnh 4</th>
+      <th scope="col">Ngày cập nhật</th>
+      <th scope="col">Trạng thái</th>
+      <th scope="col">Mã danh mục con</th>
+      <th scope="col">Mã nsx</th>
+      <th scope="col">Khuyến mãi</th>
+      <th scope="col">Thao tác</th>
+    </tr>
+   @foreach(var item in Model)
+        {
+            <tr>
+              <td>@item.MaSp</td>
+              <td>@item.TenSp</td>
+              <td>@item.ChiTiet</td>
+              <td>@item.Gia</td>
+              <td>@item.Mau</td>
+              <td>@item.SoLuong</td>
+              <td>@item.Anh1</td>
+              <td>@item.Anh2</td>
+              <td>@item.Anh3</td>
+              <td>@item.Anh4</td>
+              <td>@item.NgayCapNhat</td>
+              <td>@item.TrangThai</td>
+              <td>@item.MaDmcon</td>
+              <td>@item.MaNsx</td>
+              <td>@item.KhuyenMai</td>
+              <td>
+                  <a href="@Url.Action("EditForm", "Products", new{id = item.MaSp})">Sửa</a><br/><br/>
+                  @Html.ActionLink("Xóa", "Delete", "Products", new { id = item.MaSp }, new { onclick = "return confirm('Bạn có muốn xóa khách hàng " + item.MaSp + " không')" })
+              </td>
+            </tr>
+        }
+</table>

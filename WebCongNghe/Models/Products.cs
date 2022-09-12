@@ -1,4 +1,5 @@
 ﻿using WebCongNghe.Models.Entities;
+using System.ComponentModel.DataAnnotations;
 namespace WebCongNghe.Models
 {
     public class Products
@@ -72,7 +73,7 @@ namespace WebCongNghe.Models
             SanPham product = getProductById(masp);
             if(product != null)
             {
-                product.SoLuong = product.SoLuong - slmua;
+                product.SoLuong = (int)(product.SoLuong - slmua);
             }
             db.SaveChanges();
         }
@@ -80,6 +81,30 @@ namespace WebCongNghe.Models
         public int? getNumberOfProductsOfTheSameName(string name)
         {
             return (from p in db.SanPhams where p.TenSp == name select p.SoLuong).Sum();
+        }
+
+        // sửa 1 sản phẩm
+        public void editProduct(SanPham p)
+        {
+            SanPham productEdit = getProductById(p.MaSp);
+            if(productEdit != null)
+            {
+                productEdit.TenSp = p.TenSp;
+                productEdit.Mau = p.Mau;
+                productEdit.SoLuong = p.SoLuong;
+                productEdit.ChiTiet = p.ChiTiet;
+                productEdit.Gia = p.Gia;
+                productEdit.Anh1 = p.Anh1;
+                productEdit.Anh2 = p.Anh2;
+                productEdit.Anh3 = p.Anh3;
+                productEdit.Anh4 = p.Anh4;
+                productEdit.NgayCapNhat = p.NgayCapNhat;
+                productEdit.TrangThai = p.TrangThai;
+                productEdit.MaDmcon = p.MaDmcon;
+                productEdit.MaNsx = p.MaNsx;
+                productEdit.KhuyenMai = p.KhuyenMai;
+                db.SaveChanges();
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace WebCongNghe.Controllers
             foreach (var code in listCodeOfProduct)
             {
                 SanPham prod = p.getProductById(code);
-                prod.SoLuong = c.getNumberOfProductInCart(id, code);
+                prod.SoLuong = (int)c.getNumberOfProductInCart(id, code);
                 if (prod != null)
                 {
                     listPInCart.Add(prod);

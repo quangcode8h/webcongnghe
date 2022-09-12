@@ -41,7 +41,7 @@ namespace WebCongNghe.Controllers
         public IActionResult LogOut()
         {
             HttpContext.Session.Remove("login");
-            return Redirect("");
+            return Redirect("~/Home/Index");
         }
     }
 }

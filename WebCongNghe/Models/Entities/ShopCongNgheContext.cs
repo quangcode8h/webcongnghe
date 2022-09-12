@@ -189,25 +189,34 @@ namespace WebCongNghe.Models.Entities
 
                 entity.Property(e => e.MaSp).HasColumnName("MaSP");
 
-                entity.Property(e => e.Anh1).HasMaxLength(300);
+                entity.Property(e => e.Anh1)
+                    .IsRequired()
+                    .HasMaxLength(300);
 
-                entity.Property(e => e.Anh2).HasMaxLength(300);
+                entity.Property(e => e.Anh2)
+                    .IsRequired()
+                    .HasMaxLength(300);
 
                 entity.Property(e => e.Anh3).HasMaxLength(300);
 
                 entity.Property(e => e.Anh4).HasMaxLength(300);
 
-                entity.Property(e => e.ChiTiet).HasMaxLength(1000);
+                entity.Property(e => e.ChiTiet)
+                    .IsRequired()
+                    .HasMaxLength(1000);
 
                 entity.Property(e => e.MaDmcon).HasColumnName("MaDMCon");
 
                 entity.Property(e => e.MaNsx).HasColumnName("MaNSX");
 
-                entity.Property(e => e.Mau).HasMaxLength(20);
+                entity.Property(e => e.Mau)
+                    .IsRequired()
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.NgayCapNhat).HasColumnType("date");
 
                 entity.Property(e => e.TenSp)
+                    .IsRequired()
                     .HasMaxLength(300)
                     .HasColumnName("TenSP");
             });
